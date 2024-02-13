@@ -1,0 +1,10 @@
+{
+    "name": "masudrana/wpdocker",
+    "description": "test",
+    "autoload": {
+        "psr-4": {
+            "Masudrana\\Wpdocker\\": "includes/"
+        }
+    },
+    "require": {}
+}
