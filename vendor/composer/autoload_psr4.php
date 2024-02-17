@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Masudrana\\Wpdocker\\' => array($baseDir . '/includes'),
+    'MRWPDocker\\Inc\\' => array($baseDir . '/inc'),
 );

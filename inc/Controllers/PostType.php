@@ -1,10 +1,8 @@
 <?php
-namespace Masudrana\Wpdocker;
-use Masudrana\Wpdocker\Admin\Ajax;
+namespace MRWPDocker\Inc\Controllers;
  class PostType{
     public function __construct(){
         add_action('init', [$this, 'init']);
-		new Ajax();
     }
     public function init(){
         $this->register_dosc_cpt();

@@ -7,7 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'Masudrana\\Wpdocker\\Admin\\AdminSettings' => $baseDir . '/includes/Admin/AdminSettings.php',
-    'Masudrana\\Wpdocker\\Admin\\Ajax' => $baseDir . '/includes/Admin/Ajax.php',
-    'Masudrana\\Wpdocker\\PostType' => $baseDir . '/includes/PostType.php',
 );
