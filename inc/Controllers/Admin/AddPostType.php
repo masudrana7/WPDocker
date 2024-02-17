@@ -1,6 +1,6 @@
 <?php
-namespace MRWPDocker\Inc\Controllers;
- class PostType{
+namespace MRWPDocker\Inc\Controllers\Admin;
+ class AddPostType{
     public function __construct(){
         add_action('init', [$this, 'init']);
     }
