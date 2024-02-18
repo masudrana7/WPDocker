@@ -42,7 +42,7 @@ namespace MRWPDocker\Inc\Controllers\Admin;
 		$args = [
 			'label'               => esc_html__('Docs', "wpdocker"),
 			'labels'              => $labels,
-			'supports'            => [ 'title', 'editor', 'thumbnail', 'revisions', 'page-attributes', 'comments', 'author', 'excerpt', 'blocks' ],
+			'supports'            => [ 'title', 'editor', 'thumbnail', 'revisions', 'page-attributes', 'comments', 'author', 'blocks' ],
 			'hierarchical'        => true,
 			'public'              => true,
 			'show_ui'             => true,
