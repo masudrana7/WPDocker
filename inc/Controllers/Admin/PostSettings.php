@@ -14,6 +14,13 @@
             add_filter('manage_wpdocker_docs_posts_columns', [ $this, 'add_wpdocker_docs_posts_id']);
             add_action( 'manage_wpdocker_docs_posts_custom_column', [ $this, 'manage_wpdocker_docs_posts_custom_id'], 10, 2);
 
+            // Manage Custom Column Categories
+            add_filter('manage_wpdocker_docs_posts_columns', [ $this, 'add_wpdocker_docs_cats']);
+
+            // Manage Custom Column Groups
+            add_filter('manage_wpdocker_docs_posts_columns', [ $this, 'add_wpdocker_docs_groups']);
+            add_action('manage_wpdocker_docs_posts_custom_column', [ $this,'add_wpdocker_docs_group_title'], 10, 2 );
+
             // Manage Custom Column Id Sortable
             add_filter( 'manage_edit-wpdocker_docs_sortable_columns', [ $this,'manage_id_sortable_columns'] );
 
@@ -35,12 +42,7 @@
 
 
         // Manage Custom Column Id
-        public function manage_wpdocker_docs_posts_custom_id( $column, $post_id ){
-            if($column == 'id'){
-                echo $post_id;
-            }
-        }
-
+    
         public function add_wpdocker_docs_posts_id ( $columns ) {
             $new_columns = [];
             foreach ( $columns as $key => $value){
@@ -54,10 +56,65 @@
             return $new_columns;
         }
 
+        public function manage_wpdocker_docs_posts_custom_id( $column, $post_id ){
+            if($column == 'id'){
+                echo $post_id;
+            }
+        }
+
+        // Add Custom Column  Categories
+        public function add_wpdocker_docs_cats( $columns ){
+            $new_columns = [];
+            foreach ($columns as $key => $value){
+                if( $key == 'title'){
+                    $new_columns[ $key ] = $value;
+                    $new_columns['categories'] = __('Docs Categories', 'wpdocker');
+                }else{
+                    $new_columns[ $key ] = $value;
+                }
+            }
+            return $new_columns;
+        }
+
+        // Add Custom Column  Groups
+        public function add_wpdocker_docs_groups( $columns ){
+            $new_columns = [];
+            foreach ($columns as $key => $value){
+                if( $key == 'categories'){
+                    $new_columns[ $key ] = $value;
+                    $new_columns['group'] = __('Docs Groups', 'wpdocker');
+                }else{
+                    $new_columns[ $key ] = $value;
+                }
+            }
+            return $new_columns;
+        }
+   
+        public function add_wpdocker_docs_group_title( $column, $post_id ) {
+		    if ( 'group' === $column ) {
+                $select_group = get_post_meta( $post_id, 'group_post_select', true );
+                if ( ! $select_group ) {
+                    _e( 'n/a', 'wpdocker' );  
+                } else {
+                    $term = get_term_by('id', $select_group, 'wpdocker_docs_group');
+
+                    if ( empty( $term ) ) {
+                        return;
+                    }
+
+                    $title = get_term_by('id', $select_group, 'wpdocker_docs_group')->name;
+                    $url = admin_url() . 'term.php?taxonomy=wpdocker_docs_group&tag_ID=' . $select_group;
+                    echo '<a href=' . esc_url( $url ) . '>' . esc_html( $title ) . '</a>';
+                }
+            }
+        }
+
+
+
         // Manage Custom Column Id Sortable
-        function manage_id_sortable_columns($columns) {
+        public function manage_id_sortable_columns($columns) {
             $columns['id'] = __('ID', 'wpdocker');
-             $columns['view_count'] = __('View Count', 'wpdocker');
+            $columns['view_count'] = __('View Count', 'wpdocker');
             return $columns;
         }
 
@@ -115,7 +172,6 @@
                 $custom_content .= '</div>';
                 return $content . $custom_content;
             }
-
         }
     }
 
